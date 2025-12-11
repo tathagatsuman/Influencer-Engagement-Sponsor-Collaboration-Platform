@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href={{ url_for('static', filename="admin_dashboard.css") }}>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        </div>
+       <div class="nav-right">
+          <a href="{{ url_for('logout') }}">Log Out</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Admin Dashboard</h2>
+        <div class="fram">
+
+          <div class="second card">
+
+              <h3>All Users(Not Flagged Inappropriate):</h3>
+              <div class="scrollable">
+
+                  <ul>
+                 <div class="Users">
+                     {% for user in users %}
+                            {% if not user.is_flagged %}
+                                <div>
+                                    <h4>{{ user.name }}</h4>
+                                    <p>User Name: {{ user.username }}</p>
+                                    <p>Role: {{ user.role }}</p>
+                                    <p>Niche: {{ user.niche }}</p>
+                                    {% if user.role == 'influencer' %}
+                                        {% for influencer in influencers %}
+                                            {% if influencer.id == user.id %}                                                                                                       
+                                                <p>Reach: {{ influencer.influencer_info.reach }}
+                                                <p>Active-Status: {{ influencer.influencer_info.active_status }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %} 
+                                    {% if user.role != 'admin' %}
+                                        <form action="{{ url_for('flag_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">Flag</button>
+                                        </form>
+                                        <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">Delete</button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                     {% endfor %}
+                 </div>
+                  </ul>
+              </div>
+          </div>
+          <div class="second card">
+
+              <h3>All Users(Flagged Inappropriate):</h3>
+              <div class="scrollable">
+
+                  <ul>
+                      <div class="Users">
+                            {% for user in users %}
+                                {% if user.role != 'admin' and user.is_flagged %}
+                                    <div>
+                                        <h4>{{ user.name }}</h4>
+                                        <p>User Name: {{ user.username }}</p>
+                                        <p>Role: {{ user.role }}</p>
+                                        <p>Niche: {{ user.niche }}</p>
+                                        {% if user.role == 'influencer' %}
+                                            {% for influencer in influencers %}
+                                                {% if influencer.id == user.id %}                                                                                                       
+                                                    <p>Reach: {{ influencer.influencer_info.reach }}
+                                                    <p>Active-Status: {{ influencer.influencer_info.active_status }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %} 
+                                        <form action="{{ url_for('unflag_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">UnFlag</button>
+                                        </form>
+                                        <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">Delete</button>
+                                        </form>
+                                    </div>
+                                {% endif %}                                
+                            {% endfor %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        
+
+        <div class="fram">
+
+            <div class="second card">
+
+                <h3>All Campaigns(Not Flagged Inappropriate):</h3>
+                <div class="scrollable">
+
+                    <ul>
+                        <div class="Camp">
+                            {% for campaign in campaigns %} 
+                                {% if not campaign.is_flagged %}                   
+                                    <div>
+                                        <h4>{{ campaign.name }}</h4>
+                                        <p>{{ campaign.description }}</p>
+                                        <p>Start Date: {{ campaign.start_date }}</p>
+                                        <p>End Date: {{ campaign.end_date }}</p>
+                                        <p>Budget: {{ campaign.budget }}</p>
+                                        <p>Visibility: {{ campaign.visibility }}</p>
+                                        <p>Goals: {{ campaign.goals }}</p>
+                                        <form action="{{ url_for('flag_campaign', campaign_id=campaign.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">Flag</button>
+                                        </form>
+                                        <form action="{{ url_for('delete_campaign', campaign_id=campaign.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">Delete</button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="second card">
+
+                <h3>All Campaigns(Flagged Inappropriate):</h3>
+                <div class="scrollable">
+
+                    <ul>
+                        <div class="Camp">
+                            {% for campaign in campaigns %} 
+                                {% if campaign.is_flagged %}                   
+                                    <div>
+                                        <h4>{{ campaign.name }}</h4>
+                                        <p>{{ campaign.description }}</p>
+                                        <p>Start Date: {{ campaign.start_date }}</p>
+                                        <p>End Date: {{ campaign.end_date }}</p>
+                                        <p>Budget: {{ campaign.budget }}</p>
+                                        <p>Visibility: {{ campaign.visibility }}</p>
+                                        <p>Goals: {{ campaign.goals }}</p>
+                                        <form action="{{ url_for('unflag_campaign', campaign_id=campaign.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">UnFlag</button>
+                                        </form>
+                                        <form action="{{ url_for('delete_campaign', campaign_id=campaign.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">Delete</button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="card">
+            <h3>Ad Requests:</h3>
+            <div class="scrollable">
+                <ul>
+                    <div class="Req">
+                        {% for request in requests %}
+                            <li>
+                                
+                                    {% for campaign in campaigns %}
+                                        {% if request.campaign_id == campaign.id %}
+                                            Campaign: {{ campaign.name }} -
+                                        {% endif %} 
+                                    {% endfor %}
+                                    {% for user in users %}
+                                        {% if user.id == request.sender_id %}
+                                            Sender: {{ user.name }} -
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for user in users %}
+                                        {% if user.id == request.receiver_id %}
+                                            Receiver: {{ user.name }} -
+                                        {% endif %}
+                                    {% endfor %}
+                                    Type: {{ request.request_type }} - 
+                                    Status: {{ request.status }}
+                                    <form action="{{ url_for('delete_request', request_id=request.id) }}" method="POST" style="display:inline;">
+                                        <button type="submit" class="button">Delete</button>
+                                    </form>
+                                
+                            </li>
+                        {% endfor %}
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
