@@ -1,0 +1,63 @@
+/* Flex container for the navigation links on the right */
+.nav-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Styles for card elements */
+.card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    min-height: 200px; /* Ensures the card has a minimum height */
+    margin-top: 0; /* Removes top margin */
+}
+
+/* Body styling with a linear gradient background */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(120deg, #A9F1DF , #FFBBBB);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+
+/* Container styling for main content */
+.container {
+    width: 35%;
+    min-height: 250px; /* Ensures container has a minimum height */
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 25px;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(-225deg, #EA8D8D, #A890FE);
+}
+
+/* Button styling with a gradient background and hover effect */
+.button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-top: 15px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* Button hover effect with gradient change and slight lift */
+.button:hover {
+    background: linear-gradient(90deg, #764ba2, #667eea);
+    transform: translateY(-2px);
+}

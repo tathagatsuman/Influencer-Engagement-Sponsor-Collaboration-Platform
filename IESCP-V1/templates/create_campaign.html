@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Campaign</title>
+    <link rel="stylesheet" href={{ url_for('static', filename="create_campaign.css") }}>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        </div>
+        <div class="nav-right">
+
+            <a href="{{ url_for('logout') }}">Log Out</a>       
+        </div>
+    </nav>
+    <div class="container">
+        <div class="second card">
+            <h2>Create Campaign</h2>
+            
+
+            <form method="POST" action="{{ url_for('create_campaign') }}">
+                <div class="scrollable">
+                    <label for="name">Campaign Name</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" required></textarea>
+                    <label for="start_date">Start Date</label>
+                    <input type="Date" id="start_date" name="start_date" required>
+                    <label for="end_date">End Date</label>
+                    <input type="Date" id="end_date" name="end_date" required>
+                    <label for="budget">Budget</label>
+                    <input type="number" id="budget" name="budget" required>
+                    <label for="niche">Niche</label>
+                    <select id="niche" name="niche" placeholder="Niche/Category" required>
+                        <option>Niche/Category</option>
+                        <option value="automobiles">Auto-Mobiles</option>
+                        <option value="beverages">Beverages</option>
+                        <option value="education">Education</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="food">Food</option>
+                        <option value="real estates">Real Estates</option>
+                        <option value="sports">Sports</option>
+                        <option value="technology">Technology</option>
+                    </select>
+                    <label for="visibility">Visibility</label>
+                    <select id="visibility" name="visibility" required>
+                        <option>Visibility</option>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+                    <label for="goals">Goals</label>
+                    <textarea id="goals" name="goals" required></textarea>
+                </div>
+                <button type="submit" class="button">Create Campaign</button>
+            </form>
+            
+
+        </div>
+    </div>
+</body>
+</html>
