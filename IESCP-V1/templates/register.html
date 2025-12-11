@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-left">
+            <a href="{{ url_for('index') }}">Home</a>     
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <div class="imgbox">
+            <img src="{{ url_for('static', filename='photo.svg') }}" alt="Background Image">
+        </div>
+    
+        <div class="contentbox">
+            <div class="formbox card">
+                <h2>Register</h2>
+                <form method="POST" action="{{ url_for('register') }}" id="registerForm" onsubmit="return validateForm()">
+                    <div class="scrollable">
+                        <div class="inputbox">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="inputbox">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" required>
+                            <span id="usernameError" class="error-message"></span>              
+                        </div>
+                        <div class="inputbox">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" required>
+                            <span id="passwordError" class="error-message"></span>              
+                        </div>
+                        <div class="inputbox">
+                            <label for="retype-password">Confirm Password:</label>
+                            <input type="password" id="retype-password" name="retype-password" required>
+                            <span id="rePasswordError" class="error-message"></span>              
+                        </div>
+                        <div class="inputbox">
+                            <label for="niche">Niche:</label>
+                            <select id="niche" name="niche" required>
+                                <option value="">Niche/Category</option>
+                                <option value="automobiles">Auto-Mobiles</option>
+                                <option value="beverages">Beverages</option>
+                                <option value="education">Education</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="food">Food</option>
+                                <option value="real-estates">Real Estates</option>
+                                <option value="sports">Sports</option>
+                                <option value="technology">Technology</option>
+                            </select>              
+                        </div>
+                        <div class="inputbox">
+                            <label for="role">Role:</label>
+                            <select id="role" name="role" required onchange="toggleInfluencerFields()">
+                                <option value="">Role</option>
+                                <option value="sponsor">Sponsor</option>
+                                <option value="influencer">Influencer</option>
+                            </select>            
+                        </div>
+                        <div id="influencerFields" style="display: none;">  
+                            <div class="inputbox">              
+                                <label for="reach">Reach:</label>
+                                <input type="number" id="reach" name="reach">
+                            </div>
+                            <div class="inputbox">
+                                <label for="active_status">Active Status:</label>
+                                <select id="active_status" name="active_status">
+                                    <option value="">Active-Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inputbox">
+                        <input type="submit" value="Register">
+                    </div>
+                    <div class="inputbox">
+                        <p>Already have an account...? <a href="{{ url_for('login') }}">Log In</a></p>            
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleInfluencerFields() {
+            var role = document.getElementById('role').value;
+            var influencerFields = document.getElementById('influencerFields');
+            if (role === 'influencer') {
+                influencerFields.style.display = 'block';
+            } else {
+                influencerFields.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

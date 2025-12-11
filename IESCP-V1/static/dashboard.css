@@ -1,0 +1,246 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(120deg, #A9F1DF , #FFBBBB);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+.nav1
+{
+    justify-content: flex-start;
+}
+.nav2
+{
+    justify-content: end;
+}
+.second {
+    width: 49%;
+
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+.fram_sponsor
+{
+    display: flex;
+    gap: 20px;
+    
+}
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    background: linear-gradient(-225deg,#EA8D8D , #A890FE);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Navigation Bar */
+nav {
+    width: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Left-aligned navigation links */
+.nav-left {
+    display: flex;
+    gap: 20px;
+}
+
+/* Right-aligned navigation link */
+.nav-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Shared styles for all navigation links */
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #e3e3e3;
+}
+
+
+/* Headings */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+h3 {
+    color: #555;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    font-size: 1.75rem;
+}
+
+/* Card Styles */
+.card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.scrollable {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.scrollable_avb {
+    max-height: 525px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+/* Campaigns Section */
+.Camp, .influencers, .sent_req, .rec_req {
+    list-style: none;
+    padding: 0;
+}
+
+.Camp div, .influencers div, .sent_req div, .rec_req div {
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Camp div:hover, .influencers div:hover, .sent_req div:hover, .rec_req div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.Camp h4, .influencers p, .sent_req li, .rec_req li {
+    margin: 10px 0;
+    color: #444;
+    font-size: 1.1rem;
+}
+
+.Camp p, .influencers p {
+    font-size: 0.95rem;
+    color: #777;
+}
+
+/* Response Containers */
+.rec_req div, .sent_req div {
+    position: relative;    
+}
+
+/* Buttons Container */
+.response-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.response-buttons .button {
+    padding: 8px 15px;
+    font-size: 14px;
+    width: 100px; /* Fixed width for uniformity */
+}
+
+/* Optional: Hover Effects */
+.response-buttons .button:hover {
+    transform: translateY(-2px);
+}
+
+/* Buttons */
+.button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-top: 15px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background: linear-gradient(90deg, #764ba2, #667eea);
+    transform: translateY(-2px);
+}
+
+/* Forms */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #555;
+    font-weight: bold;
+}
+
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Footer (optional) */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background: #333;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-container {
+    position: relative;
+    width: 100%; 
+    height: 100vh;
+    display: flex;
+}
+
+nav {
+    width: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #e3e3e3;
+}
+
+.login-container .imgbox {
+    position: relative;
+    width: 55%;
+    height: 100%;
+}
+
+.login-container .imgbox::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(225deg, #e91e63, #03a9f4);
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+.login-container .imgbox img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-container .contentbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    height: 100%;
+}
+
+.login-container .formbox {
+    width: 80%; 
+    max-width: 400px; 
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.login-container h2 {
+    color: #607d8b;
+    font-weight: 600;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 4px solid #ff4584;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+
+.login-container .inputbox {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.login-container .inputbox label {
+    font-size: 16px;
+    color: #607d8b;
+    font-weight: 300;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-container .inputbox input {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #607d8b;
+    font-weight: 400;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    border: 1px solid #607d8b;
+    background: transparent;
+    outline: none;
+}
+
+.login-container .inputbox input[type="submit"] {
+    background: #ff4584;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.login-container .inputbox input[type="submit"]:hover {
+    background: #f53677;
+}
+
+.login-container .inputbox p {
+    color: #607d8b;
+}
+
+.login-container .inputbox p a {
+    color: #ff4584;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+}
+
+/* Added for the "Forgot Password?" link */
+.forget {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.forget .forgot-password {
+    color: #ff4584;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forget .forgot-password:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 820px) {
+    .login-container .imgbox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .login-container .contentbox {
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .login-container .formbox {
+        width: 100%;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        margin: 50px;
+    }
+}

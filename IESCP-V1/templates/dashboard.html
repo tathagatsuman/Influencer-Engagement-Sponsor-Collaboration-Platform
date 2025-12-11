@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href={{ url_for('static',filename="dashboard.css") }}>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        </div>
+       <div class="nav-right">
+          <a href="{{ url_for('logout') }}">Log Out</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Welcome! {{ current_user.name }}</h2>
+
+        {% if current_user.role == 'sponsor' %}
+        <div class="fram_sponsor">
+ 
+            <div class="second card">
+                <h3>Your Campaigns</h3>
+                <div class="scrollable Camp">
+                    <ul>
+                        {% for campaign in campaigns %}
+                        
+                            <div>
+                                <h4>{{ campaign.name }}</h4>
+                                <p>{{ campaign.description }}</p>
+                                <p>Start Date: {{ campaign.start_date }}</p>
+                                <p>End Date: {{ campaign.end_date }}</p>
+                                <p>Budget: {{ campaign.budget }}</p>
+                                <p>Niche: {{ campaign.niche }}</p>
+                                <p>Visibility: {{ campaign.visibility }}</p>
+                                <p>Goals: {{ campaign.goals }}</p>
+                                <form action="{{ url_for('edit_campaign', campaign_id=campaign.id) }}" method="GET" style="display:inline;">
+                                    <button type="submit" class="button">Edit</button>
+                                </form>
+                                <form action="{{ url_for('delete_campaign', campaign_id=campaign.id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="button">Delete</button>
+                                </form>
+                            </div>
+                        
+                        {% endfor %}
+                    </ul>
+                </div>
+                <a href="{{ url_for('create_campaign') }}" class="button">Create New Campaign</a>
+            </div>
+
+            <div class="second card">
+                <h3>Active Influencers</h3>
+                <div class="scrollable influencers">
+                    <ul>
+                        {% for user in users %}
+                        {% if user.influencer_info.active_status == 'active' %}
+                        
+                            <div>
+                                <h4>{{ user.name }}</h4>
+                                <p>Reach: {{ user.influencer_info.reach }}</p>
+                                <p>Niche: {{ user.niche }}</p>
+                            </div>
+                        
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="fram_sponsor">
+
+            <div class="card second">
+                <h3>Sent Request to Influencers</h3>
+                <div class="scrollable sent_req">
+                    <ul>
+                        {% for request in sent_requests %}
+                        <div>
+                            {% for user in users %}
+                                {% if user.id == request.receiver_id %}                                    
+                                        <h4>{{ user.name }}</h4>                                        
+                                        <p>Niche: {{ user.niche }}</p>
+                                        <p>Reach: {{ user.influencer_info.reach }}</p>
+                                        <p>Campaign: {%for campaign in campaigns %} {% if campaign.id == request.campaign_id %} {{ campaign.name }} {% endif %} {% endfor %}</p>
+                                        <p>Message(Payment-Offered): {{ request.messages }}</p>
+                                        <p>Status: {{ request.status }}</p>
+
+                                        <form action="{{ url_for('delete_request', request_id=request.id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="button">Delete</button>
+                                        </form>
+                                    
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    </ul>
+                </div>
+                
+            </div>
+
+            <div class="card second">
+                <h3>Received Requests from Influencers</h3>
+                <div class="scrollable rec_req">
+                    <ul>
+                        {% for request in received_requests %}
+                        <div>
+                            {% for user in users %}
+                                {% if user.id == request.sender_id %}
+                                    
+                                        <h4>{{ user.name }}</h4>                                        
+                                        <p>Niche: {{ user.niche }}</p>
+                                        <p>Reach: {{ user.influencer_info.reach }}</p>
+                                        <p>Campaign: {%for campaign in campaigns %} {% if campaign.id == request.campaign_id %} {{ campaign.name }} {% endif %} {% endfor %}</p>
+                                        <p>Message(Payment-Demanded): {{ request.messages }}</p>
+
+                                        {% if request.status == 'Pending' %}
+                                            
+                                            <form action="{{ url_for('manage_request', request_id=request.id, action='accept') }}" method="POST" style="display:inline;">
+                                                <button type="submit" class="button">Accept</button>
+                                            </form>
+                                            
+                                            <form action="{{ url_for('manage_request', request_id=request.id, action='reject') }}" method="POST" style="display:inline;">
+                                                <button type="submit" class="button">Reject</button>
+                                            </form>
+                                        {% else %}
+                                            <p>{{ request.status }}</p>
+                                        {% endif %}
+                                    
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="send">
+
+            <div class="card">
+                <h3>Send Requests to Influencers</h3>
+                <form method="POST" action="{{ url_for('request_influencer') }}">
+                    <label for="campaign">Select Campaign</label>
+                    <select id="campaign" name="campaign_id" required>
+                        {% for campaign in campaigns %}
+                        <option value="{{ campaign.id }}">{{ campaign.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="influencer">Select Influencer</label>
+                    <select id="influencer" name="influencer_id" required>
+                        {% for user in users %}
+                        {% if user.influencer_info.active_status == 'active' %}
+                        <option value="{{ user.id }}">{{ user.name }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label for="message_sponsor">Requirements</label>
+                    <textarea id="message_sponsor" name="messages" required></textarea>
+                    <button type="submit" class="button">Send Request</button>
+                </form>
+                
+            </div>
+
+        </div>
+
+        {% elif current_user.role == 'influencer' %}
+        <div class="fram_sponsor">
+      
+            <div class="card second">
+                <h3>Sent Requests to Sponsors</h3>
+                <div class="scrollable sent_req">
+                    <ul>
+                        {% for request in sent_requests %}
+                        <div>                            
+                            
+                                {%for campaign in campaigns %}
+                                    {% if campaign.id == request.campaign_id %}
+                                        <h4>Campaign: {{ campaign.name }}</h4>
+                                        <p>{{campaign.description}}</p>
+                                        <p>Niche: {{ campaign.niche }}</p>
+                                        <p>Budget: {{ campaign.budget }}</p>
+                                        <p>Goals: {{ campaign.goals }}</p>
+                                        <p>Message(Payment-Demanded): {{ request.messages }}</p>
+                                        <p>Status: {{request.status}}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            
+
+                            <form action="{{ url_for('delete_request', request_id=request.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="button">Delete</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card second">
+                <h3>Received Requests from Sponsors</h3>
+                <div class="scrollable rec_req">
+                    <ul>
+                        {% for request in received_requests %}
+                        <div>                            
+                            
+                                {%for campaign in campaigns %}
+                                    {% if campaign.id == request.campaign_id %}
+                                        <h4>Campaign: {{ campaign.name }}</h4>
+                                        <p>{{campaign.description}}</p>
+                                        <p>Niche: {{ campaign.niche }}</p>
+                                        <p>Budget: {{ campaign.budget }}</p>
+                                        <p>Goals: {{ campaign.goals }}</p>
+                                        <p>Message(Payment-Offered): {{ request.messages }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if request.status == 'Pending' %}
+                                    
+                                    <form action="{{ url_for('manage_request', request_id=request.id, action='accept') }}" method="POST" style="display:inline;">
+                                        <button type="submit" class="button">Accept</button>
+                                    </form>
+                                    
+                                    <form action="{{ url_for('manage_request', request_id=request.id, action='reject') }}" method="POST" style="display:inline;">
+                                        <button type="submit" class="button">Reject</button>
+                                    </form>
+                                {% else %}
+                                    <p>{{ request.status }}</p>
+                                {% endif %}
+                                                            
+                        </div>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <h3>Available Campaigns</h3>
+                <div class="scrollable_avb Camp">
+                    <ul>
+                        {% for campaign in campaigns %}                        
+                        {% if (campaign.visibility == 'public') or (campaign.visibility == 'private' and campaign.niche == current_user.niche) %}
+                            
+                                <div>
+                                    <h4>{{ campaign.name }}</h4>
+                                    <p>{{ campaign.description }}</p>
+                                    <p>Start Date: {{ campaign.start_date }}</p>
+                                    <p>End Date: {{ campaign.end_date }}</p>
+                                    <p>Budget: {{ campaign.budget }}</p>
+                                    <p>Niche: {{ campaign.niche }}</p>
+                                    <p>Visibility: {{ campaign.visibility }}</p>
+                                    <p>Goals: {{ campaign.goals }}</p>
+                                    
+                                    <form action="{{ url_for('send_request', campaign_id=campaign.id, receiver_id=campaign.sponsor_id) }}" method="POST" style="display:inline;">
+                                        <label for="message_influencer">Requirements</label>
+                                        <textarea id="message_influencer" name="messages" required></textarea>
+                                        <button type="submit" class="button">Request to Join</button>
+                                    </form>
+                                </div>
+                            
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
